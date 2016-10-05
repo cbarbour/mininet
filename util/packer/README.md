@@ -16,6 +16,8 @@ See the AWS Command Line Interface documentation for additional information on [
 
 ## Advanced usage
 
+### Build options
+
 The `build.sh` script will pass any supplied arguments directly to packer. You can use this to pass account specific settings to the build script that you might not want to hard code into your configuration.
 
 For example, if your account does not have a default VPC, you may pass your VPC ID and Subnet ID like this:
@@ -23,6 +25,20 @@ For example, if your account does not have a default VPC, you may pass your VPC 
 ```
 ./build.sh -var 'vpc_id=vpc-1234abcd' -var 'subnet_id=subnet-567890ef'
 ```
+
+### Building old releases
+
+Releases of mininet prior to the introduction of this template will not contain the template as part of a normal checkout. You can build older releases by checking the packer templates from the master branch into the current working tree.
+
+For example:
+
+```
+git checkout 2.2.1
+git checkout master /util/packer
+```
+
+This will place the packer templates from the master branch into the 2.2.1 working tree. You can then proceed to build an AMI normally.
+
 
 ## Issues / Enhancements
 

@@ -92,8 +92,11 @@ fi
 
 # Install Mininet
 time "${DIR}/util/install.sh"
+
 # Finalize VM
-time "${DIR}/util/install.sh" -tcd
+# Disable -d for now; causes problems for packer. 
+#time "${DIR}/util/install.sh" -tcd
+time "${DIR}/util/install.sh" -tc
 # Ignoring this since NOX classic is deprecated
 #if ! grep NOX_CORE_DIR .bashrc; then
 #  echo "export NOX_CORE_DIR=~/noxcore/build/src/" >> .bashrc

@@ -1,0 +1,57 @@
+{
+  "variables": {
+    "region": "null",
+    "source_ami": "null",
+    "subnet_id": "",
+    "vpc_id": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "{{ user `region` }}",
+      "source_ami": "{{ user `source_ami` }}",
+      "instance_type": "t2.micro",
+      "subnet_id": "{{ user `subnet_id` }}",
+      "vpc_id": "{{ user `vpc_id` }}",
+      "ssh_username": "ubuntu",
+      "ami_name": "Mininet_assignments {{ user `mininet_version` }} {{timestamp}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [ "mkdir /tmp/mininet/" ]
+    },
+    {
+      "type": "file",
+      "source": "../../",
+      "destination": "/tmp/mininet/"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo useradd --comment 'mininet' --user-group --create-home --shell='/bin/bash' mininet",
+        "sudo mv /tmp/mininet /home/mininet/mininet",
+        "sudo chown -R mininet:mininet /home/mininet/mininet"
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "./files/install-mininet-vm.sh",
+      "execute_command": "{{ .Vars }} sudo -E /bin/bash '{{ .Path }}' -d '/home/mininet/mininet'"
+    },
+    {
+      "only": [ "amazon-ebs" ],
+      "type": "file",
+      "source": "./files/mininet.cfg",
+      "destination": "/tmp/mininet.cfg"
+    },
+    {
+      "only": [ "amazon-ebs" ],
+      "type": "shell",
+      "inline": [
+        "sudo mv /tmp/mininet.cfg /etc/cloud/cloud.cfg.d/mininet.cfg"
+      ]
+    }
+  ]
+}

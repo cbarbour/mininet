@@ -43,14 +43,14 @@
     {
       "only": [ "amazon-ebs" ],
       "type": "file",
-      "source": "./files/mininet.cfg",
-      "destination": "/tmp/mininet.cfg"
+      "source": "./files/cloud.cfg",
+      "destination": "/tmp/cloud.cfg"
     },
     {
       "only": [ "amazon-ebs" ],
       "type": "shell",
       "inline": [
-        "sudo mv /tmp/mininet.cfg /etc/cloud/cloud.cfg.d/mininet.cfg"
+        "sudo mv /tmp/cloud.cfg /etc/cloud/cloud.cfg"
       ]
     }
   ]

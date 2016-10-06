@@ -54,9 +54,12 @@ fi
 # optional argument: Mininet branch to install
 set -e
 sudo sed -i -e 's/Default/#Default/' /etc/sudoers
-echo mininet-vm | sudo tee /etc/hostname > /dev/null
-sudo sed -i -e 's/ubuntu/mininet-vm/g' /etc/hosts
-sudo hostname `cat /etc/hostname`
+
+# Cloud-init can set the hostname
+#echo mininet-vm | sudo tee /etc/hostname > /dev/null
+#sudo sed -i -e 's/ubuntu/mininet-vm/g' /etc/hosts
+#sudo hostname `cat /etc/hostname`
+
 sudo sed -i -e 's/splash//' /etc/default/grub
 sudo sed -i -e 's/quiet/text/' /etc/default/grub
 sudo update-grub

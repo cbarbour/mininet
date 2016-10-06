@@ -50,7 +50,10 @@
       "only": [ "amazon-ebs" ],
       "type": "shell",
       "inline": [
-        "sudo mv /tmp/cloud.cfg /etc/cloud/cloud.cfg"
+        "sudo mv /tmp/cloud.cfg /etc/cloud/cloud.cfg.d/mininet.cfg",
+        "sudo rm -rf /var/lib/cloud/instances",
+        "sudo rm /home/ubuntu/.ssh/authorized_keys",
+        "sudo rm /etc/ssh/ssh_host_*_key*"
       ]
     }
   ]
